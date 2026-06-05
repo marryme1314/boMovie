@@ -1,6 +1,10 @@
-package com.xgd.demo;
+package com.biubiupapa.movie;
 
 import java.util.List;
+/**
+ *获取电影列表
+ * biubiupapa
+ */
 
 public class ComingListResponse {
     private List<Movie> coming;

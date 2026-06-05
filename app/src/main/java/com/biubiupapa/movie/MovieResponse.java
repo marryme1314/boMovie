@@ -1,6 +1,10 @@
-package com.xgd.demo;
+package com.biubiupapa.movie;
 import java.util.List;
 
+/**
+ *得到电影标题和电影列表
+ * biubiupapa
+ */
 public class MovieResponse {
     private String title;
     private List<Movie> movieList;

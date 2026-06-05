@@ -1,4 +1,4 @@
-package com.xgd.demo;
+package com.xgd.movie;
 
 import org.junit.Test;
 

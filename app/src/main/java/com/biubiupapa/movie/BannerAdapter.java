@@ -1,4 +1,4 @@
-package com.xgd.demo;
+package com.biubiupapa.movie;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -14,6 +14,10 @@ import com.bumptech.glide.Glide;
 
 import java.util.ArrayList;
 import java.util.List;
+/**
+ * 横幅展示recycleView的适配器
+ * biubiupapa
+ */
 
 public class BannerAdapter extends RecyclerView.Adapter<BannerAdapter.BannerViewHolder> {
 

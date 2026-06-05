@@ -3,7 +3,7 @@ plugins {
 }
 
 android {
-    namespace 'com.xgd.demo'
+    namespace 'com.biubiupapa.movie'
     compileSdk {
         version = release(36) {
             minorApiLevel = 1
@@ -11,7 +11,7 @@ android {
     }
 
     defaultConfig {
-        applicationId "com.xgd.demo"
+        applicationId "com.biubiupapa.movie"
         minSdk 33
         targetSdk 36
         versionCode 1
