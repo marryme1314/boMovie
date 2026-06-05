@@ -1,4 +1,4 @@
-package com.xgd.demo;
+package com.biubiupapa.movie;
 
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -36,6 +36,10 @@ public class DetailActivity extends AppCompatActivity {
     private ProgressBar progressDetail;
 
     private Movie movie;
+/**
+ * 电影详情页展示功能，包括评分等等
+ * biubiupapa
+ */
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

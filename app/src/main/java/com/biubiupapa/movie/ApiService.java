@@ -1,4 +1,4 @@
-package com.xgd.demo;
+package com.biubiupapa.movie;
 
 import retrofit2.Call;
 import retrofit2.http.GET;
@@ -13,7 +13,7 @@ public interface ApiService {
     Call<MovieResponse> getHotMovies(@Query("ci") String cityId);
 
     @GET("index/comingList")
-    Call<ComingListResponse> getComingList(
+    Call<com.biubiupapa.movie.ComingListResponse> getComingList(
             @Query("ci") String cityId,
             @Query("limit") int limit
     );

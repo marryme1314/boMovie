@@ -1,9 +1,13 @@
-package com.xgd.demo;
+package com.biubiupapa.movie;
 
 import okhttp3.OkHttpClient;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
+/**
+ * 用于请求客户端
+ * biubiupapa
+ */
 public final class RetrofitClient {
 
     private static final String BASE_URL = "https://apis.netstart.cn/maoyan/";

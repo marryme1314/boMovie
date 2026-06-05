@@ -1,4 +1,4 @@
-package com.xgd.demo;
+package com.biubiupapa.movie;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -42,6 +42,10 @@ public class MainActivity extends AppCompatActivity {
     private final Handler autoScrollHandler = new Handler(Looper.getMainLooper());
     private Runnable autoScrollRunnable;
     private final AtomicInteger pendingRequests = new AtomicInteger(3);
+/**
+ * 开始加载
+ * biubiupapa
+ */
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

@@ -1,9 +1,12 @@
-package com.xgd.demo;
+package com.biubiupapa.movie;
 
 import com.google.gson.annotations.SerializedName;
 
 import java.io.Serializable;
 
+/**
+ * 封装电影属性
+ */
 public class Movie implements Serializable {
     @SerializedName(value = "movieId", alternate = {"id"})
     private int movieId;

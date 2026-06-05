@@ -1,5 +1,9 @@
-package com.xgd.demo;
+package com.biubiupapa.movie;
 
+/**
+ * 响应
+ * biubiupapa
+ */
 public class MovieIntroResponse {
     private DataWrapper data;
 
