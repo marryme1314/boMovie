@@ -1,0 +1,36 @@
+*.iml
+.gradle
+/local.properties
+/.idea
+.DS_Store
+/build
+/captures
+.externalNativeBuild
+.cxx
+local.properties
+
+# Build outputs
+app/build/
+build/
+
+# APK
+*.apk
+*.aab
+*.ap_
+
+# Log files
+*.log
+
+# OS files
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+
+# Generated files
+gen/
+out/
+bin/
+
+# Temp files
+temp_*.json
+compile_output.txt
