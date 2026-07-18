@@ -8,6 +8,7 @@
 .externalNativeBuild
 .cxx
 local.properties
+<<<<<<< HEAD
 
 # Build outputs
 app/build/
@@ -34,3 +35,5 @@ bin/
 # Temp files
 temp_*.json
 compile_output.txt
+=======
+>>>>>>> be54fdf08b8095d04475fecc6d05fac8314e6702
