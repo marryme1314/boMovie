@@ -41,6 +41,47 @@
         android:layout_height="1dp"
         android:background="#E0E0E0" />
 
+    <!-- 当前定位城市 -->
+    <LinearLayout
+        android:id="@+id/llLocationCity"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="16dp"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:background="?android:attr/selectableItemBackground">
+
+        <ImageView
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:src="@android:drawable/ic_menu_mylocation"
+            android:contentDescription="定位" />
+
+        <TextView
+            android:id="@+id/tvLocationCity"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:text="正在定位..."
+            android:textColor="#FF6600"
+            android:textSize="15sp" />
+
+        <ProgressBar
+            android:id="@+id/progressLocation"
+            android:layout_width="16dp"
+            android:layout_height="16dp"
+            android:layout_marginStart="8dp"
+            android:visibility="visible" />
+
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#E0E0E0" />
+
     <!-- 热门城市 -->
     <TextView
         android:id="@+id/tvHotLabel"
