@@ -1,4 +1,4 @@
-package com.biubiupapa.movie;
+package com.biubiupapa.movie.model;
 
 /**
  * 响应

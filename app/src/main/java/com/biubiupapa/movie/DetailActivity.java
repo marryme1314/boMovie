@@ -9,6 +9,10 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.biubiupapa.movie.model.Movie;
+import com.biubiupapa.movie.model.MovieIntroResponse;
+import com.biubiupapa.movie.util.RetrofitClient;
+
 import com.bumptech.glide.Glide;
 
 import retrofit2.Call;

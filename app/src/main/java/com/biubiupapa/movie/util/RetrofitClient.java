@@ -1,4 +1,4 @@
-package com.biubiupapa.movie;
+package com.biubiupapa.movie.util;
 
 import okhttp3.OkHttpClient;
 import retrofit2.Retrofit;

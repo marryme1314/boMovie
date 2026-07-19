@@ -5,7 +5,7 @@
 ### 技术栈
 
 - **语言**: Java
-- **网络请求**: OkHttp
+- **网络请求**: Retrofit + OkHttp
 - **数据解析**: Gson
 - **图片加载**: Glide
 - **架构**: Activity + Fragment + RecyclerView
@@ -29,33 +29,51 @@
 boMovie-main/
 ├── app/src/main/
 │   ├── java/com/biubiupapa/movie/
-│   │   ├── MainActivity.java          # 主页面（热映、即将上映、最受期待）
-│   │   ├── DetailActivity.java        # 电影详情页
-│   │   ├── CityPickerActivity.java    # 城市选择页
-│   │   ├── SearchActivity.java        # 电影搜索页
-│   │   ├── adapter/                   # 适配器
+│   │   ├── MainActivity.java              # 主页面（热映、即将上映、最受期待）
+│   │   ├── DetailActivity.java            # 电影详情页
+│   │   ├── CityPickerActivity.java        # 城市选择页
+│   │   ├── SearchActivity.java            # 电影搜索页
+│   │   ├── OnMovieClickListener.java      # 电影点击回调接口
+│   │   ├── adapter/                       # 适配器
 │   │   │   ├── MovieAdapter.java
 │   │   │   ├── BannerAdapter.java
 │   │   │   ├── ExpectedAdapter.java
 │   │   │   └── SearchResultAdapter.java
-│   │   ├── model/                     # 数据模型
+│   │   ├── model/                         # 数据模型
 │   │   │   ├── Movie.java
 │   │   │   ├── City.java
 │   │   │   ├── CityResponse.java
+│   │   │   ├── MovieResponse.java
 │   │   │   ├── MovieListResponse.java
+│   │   │   ├── MovieIntroResponse.java
+│   │   │   ├── ComingListResponse.java
 │   │   │   ├── MostExpectedResponse.java
 │   │   │   ├── SearchSuggestItem.java
 │   │   │   └── SearchMovieResponse.java
-│   │   └── util/
-│   │       └── ApiService.java        # API 接口定义
-│   └── res/layout/                    # 布局文件
+│   │   └── util/                          # 工具类
+│   │       ├── ApiService.java            # API 接口定义
+│   │       └── RetrofitClient.java        # Retrofit 客户端
+│   └── res/layout/                        # 布局文件
+├── .github/
+│   ├── workflows/build.yml                # CI 自动构建
+│   └── ISSUE_TEMPLATE/                    # Issue 模板
+├── screenshots/                           # 效果截图
+├── CHANGELOG.md                           # 版本更新记录
+├── LICENSE                                # 开源协议
 ├── build.gradle
 └── settings.gradle
 ```
 
 ### 编译与运行
 
-使用 Android Studio 打开项目，配置 JDK 21，连接设备或模拟器后直接运行。
+**环境要求：**
+- Android Studio
+- JDK 21
+- Android SDK (compileSdk 36, minSdk 24)
+
+**运行方式：**
+
+使用 Android Studio 打开项目，连接设备或模拟器后直接运行。
 
 ```bash
 # 或通过命令行编译
@@ -68,6 +86,15 @@ adb install app/build/outputs/apk/debug/app-debug.apk
 ### 效果展示
 
 ##### 主页效果
-![主页](img.png)
+![主页](screenshots/home.png)
 
 ##### 详情页展示
+![详情页](screenshots/detail.png)
+
+### 更新日志
+
+查看 [CHANGELOG.md](CHANGELOG.md) 了解版本更新历史。
+
+### 开源协议
+
+本项目基于 [Apache-2.0](LICENSE) 协议开源。

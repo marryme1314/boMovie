@@ -1,4 +1,4 @@
-package com.biubiupapa.movie;
+package com.biubiupapa.movie.adapter;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -9,6 +9,10 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.biubiupapa.movie.R;
+import com.biubiupapa.movie.OnMovieClickListener;
+import com.biubiupapa.movie.model.MostExpectedResponse;
 
 import com.bumptech.glide.Glide;
 

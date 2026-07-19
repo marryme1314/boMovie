@@ -22,6 +22,12 @@ import com.bumptech.glide.Glide;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.biubiupapa.movie.adapter.SearchResultAdapter;
+import com.biubiupapa.movie.model.Movie;
+import com.biubiupapa.movie.model.SearchSuggestItem;
+import com.biubiupapa.movie.model.SearchMovieResponse;
+import com.biubiupapa.movie.util.RetrofitClient;
+
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;

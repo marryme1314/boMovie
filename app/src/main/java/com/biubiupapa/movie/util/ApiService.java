@@ -1,6 +1,14 @@
-package com.biubiupapa.movie;
+package com.biubiupapa.movie.util;
 
 import java.util.List;
+
+import com.biubiupapa.movie.model.ComingListResponse;
+import com.biubiupapa.movie.model.MovieIntroResponse;
+import com.biubiupapa.movie.model.CityResponse;
+import com.biubiupapa.movie.model.MostExpectedResponse;
+import com.biubiupapa.movie.model.SearchSuggestItem;
+import com.biubiupapa.movie.model.SearchMovieResponse;
+import com.biubiupapa.movie.model.MovieResponse;
 
 import retrofit2.Call;
 import retrofit2.http.GET;

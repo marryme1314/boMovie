@@ -19,6 +19,16 @@ import androidx.viewpager2.widget.ViewPager2;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
 
+import com.biubiupapa.movie.adapter.BannerAdapter;
+import com.biubiupapa.movie.adapter.MovieAdapter;
+import com.biubiupapa.movie.adapter.ExpectedAdapter;
+import com.biubiupapa.movie.model.MovieResponse;
+import com.biubiupapa.movie.model.MostExpectedResponse;
+import com.biubiupapa.movie.model.Movie;
+import com.biubiupapa.movie.model.ComingListResponse;
+import com.biubiupapa.movie.util.ApiService;
+import com.biubiupapa.movie.util.RetrofitClient;
+
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;

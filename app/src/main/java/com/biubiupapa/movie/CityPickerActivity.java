@@ -17,6 +17,10 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.biubiupapa.movie.model.City;
+import com.biubiupapa.movie.model.CityResponse;
+import com.biubiupapa.movie.util.RetrofitClient;
+
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
