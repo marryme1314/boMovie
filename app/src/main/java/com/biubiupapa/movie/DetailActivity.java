@@ -1,5 +1,6 @@
 package com.biubiupapa.movie;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
@@ -35,7 +36,7 @@ public class DetailActivity extends AppCompatActivity {
     private TextView tvDetailAlias;
     private TextView tvDetailRelease;
     private TextView tvDetailVersion;
-    private TextView tvDetailSynopsis;·
+    private TextView tvDetailSynopsis;
     private TextView tvDetailError;
     private ProgressBar progressDetail;
 
@@ -50,15 +51,34 @@ public class DetailActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail);
 
-        bindViews();
         movie = (Movie) getIntent().getSerializableExtra("movie");
         if (movie == null) {
+            bindViews();
             showError("未收到电影数据");
             return;
         }
 
+        bindViews();
+
+        // Favorite/collect button - needs movie to be set first
+        ImageView ivFavorite = findViewById(R.id.ivFavorite);
+        if (ivFavorite != null) {
+            boolean isFav = com.biubiupapa.movie.util.FavoritesManager.getInstance(this).isFavorite(movie.getMovieId());
+            ivFavorite.setImageResource(isFav ? R.drawable.ic_star_filled : R.drawable.ic_star_outline);
+            ivFavorite.setColorFilter(getResources().getColor(isFav ? R.color.primary : R.color.text_hint));
+            ivFavorite.setOnClickListener(v -> {
+                com.biubiupapa.movie.util.FavoritesManager.getInstance(this).toggle(movie);
+                boolean nowFav = com.biubiupapa.movie.util.FavoritesManager.getInstance(this).isFavorite(movie.getMovieId());
+                ivFavorite.setImageResource(nowFav ? R.drawable.ic_star_filled : R.drawable.ic_star_outline);
+                ivFavorite.setColorFilter(getResources().getColor(nowFav ? R.color.primary : R.color.text_hint));
+                android.widget.Toast.makeText(this, nowFav ? "已收藏" : "已取消收藏", android.widget.Toast.LENGTH_SHORT).show();
+            });
+        }
+
         bindMovie(movie);
         loadMovieIntro(movie.getMovieId());
+
+        com.biubiupapa.movie.util.HistoryManager.getInstance(this).add(movie);
     }
 
     private void bindViews() {
@@ -79,6 +99,34 @@ public class DetailActivity extends AppCompatActivity {
         tvDetailSynopsis = findViewById(R.id.tvDetailSynopsis);
         tvDetailError = findViewById(R.id.tvDetailError);
         progressDetail = findViewById(R.id.progressDetail);
+
+        findViewById(R.id.llCart).setOnClickListener(v -> {
+            startActivity(new Intent(this, CartActivity.class));
+        });
+
+        findViewById(R.id.btnAddCart).setOnClickListener(v -> addToCart());
+
+        findViewById(R.id.btnBuy).setOnClickListener(v -> {
+            addToCart();
+            startActivity(new Intent(this, CartActivity.class));
+        });
+
+        updateCartCount();
+    }
+
+    private void addToCart() {
+        if (movie != null) {
+            com.biubiupapa.movie.util.CartManager.getInstance(this).add(movie);
+            updateCartCount();
+            android.widget.Toast.makeText(this, "已加入购物车", android.widget.Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    private void updateCartCount() {
+        TextView tvCartCount = findViewById(R.id.tvCartCount);
+        int count = com.biubiupapa.movie.util.CartManager.getInstance(this).getCount();
+        tvCartCount.setText(String.valueOf(count));
+        tvCartCount.setVisibility(count > 0 ? View.VISIBLE : View.INVISIBLE);
     }
 
     private void loadMovieIntro(int movieId) {

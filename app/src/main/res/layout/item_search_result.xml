@@ -1,73 +1,82 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="horizontal"
-    android:gravity="center_vertical"
-    android:paddingStart="16dp"
-    android:paddingEnd="16dp"
-    android:paddingTop="10dp"
-    android:paddingBottom="10dp"
-    android:background="?android:attr/selectableItemBackground">
-
-    <ImageView
-        android:id="@+id/ivPoster"
-        android:layout_width="80dp"
-        android:layout_height="110dp"
-        android:scaleType="centerCrop"
-        android:contentDescription="电影海报"
-        android:background="#E0E0E0" />
+    android:layout_marginHorizontal="12dp"
+    android:layout_marginTop="8dp"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    app:cardCornerRadius="12dp"
+    app:cardElevation="1dp"
+    app:strokeWidth="0dp"
+    app:contentPadding="0dp">
 
     <LinearLayout
-        android:layout_width="0dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:layout_marginStart="14dp"
-        android:orientation="vertical">
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:padding="12dp">
 
-        <TextView
-            android:id="@+id/tvMovieTitle"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textColor="#333333"
-            android:textSize="16sp"
-            android:textStyle="bold"
-            android:maxLines="1"
-            android:ellipsize="end"
-            android:text="电影名称" />
+        <ImageView
+            android:id="@+id/ivPoster"
+            android:layout_width="80dp"
+            android:layout_height="110dp"
+            android:scaleType="centerCrop"
+            android:contentDescription="电影海报"
+            android:background="@color/surface_variant" />
 
-        <TextView
-            android:id="@+id/tvMovieRating"
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="6dp"
-            android:textColor="#FF6B6B"
-            android:textSize="13sp"
-            android:textStyle="bold"
-            android:text="评分 0.0" />
+            android:layout_weight="1"
+            android:layout_marginStart="14dp"
+            android:orientation="vertical">
 
-        <TextView
-            android:id="@+id/tvMovieInfo"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="4dp"
-            android:textColor="#999999"
-            android:textSize="12sp"
-            android:maxLines="2"
-            android:ellipsize="end"
-            android:text="类型 | 导演" />
+            <TextView
+                android:id="@+id/tvMovieTitle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@color/text_primary"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                android:maxLines="1"
+                android:ellipsize="end"
+                android:text="电影名称" />
 
-        <TextView
-            android:id="@+id/tvMovieRelease"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="4dp"
-            android:textColor="#3C9FE6"
-            android:textSize="12sp"
-            android:maxLines="1"
-            android:ellipsize="end"
-            android:visibility="gone" />
+            <TextView
+                android:id="@+id/tvMovieRating"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="6dp"
+                android:textColor="@color/rating_high"
+                android:textSize="13sp"
+                android:textStyle="bold"
+                android:text="评分 0.0" />
+
+            <TextView
+                android:id="@+id/tvMovieInfo"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:textColor="@color/text_hint"
+                android:textSize="12sp"
+                android:maxLines="2"
+                android:ellipsize="end"
+                android:text="类型 | 导演" />
+
+            <TextView
+                android:id="@+id/tvMovieRelease"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:textColor="@color/release_date"
+                android:textSize="12sp"
+                android:maxLines="1"
+                android:ellipsize="end"
+                android:visibility="gone" />
+
+        </LinearLayout>
 
     </LinearLayout>
 
-</LinearLayout>
+</com.google.android.material.card.MaterialCardView>

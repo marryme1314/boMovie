@@ -10,11 +10,12 @@ import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
 import android.widget.EditText;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -22,10 +23,17 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
+import androidx.core.view.WindowCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.io.IOException;
+import java.io.InputStream;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
@@ -47,6 +55,7 @@ public class CityPickerActivity extends AppCompatActivity {
     public static final String RESULT_CITY_ID = "city_id";
     public static final String RESULT_CITY_NAME = "city_name";
     private static final int REQUEST_LOCATION = 1002;
+    private static final long LOCATION_TIMEOUT_MS = 8000;
 
     private RecyclerView rvHotCities;
     private RecyclerView rvCityList;
@@ -59,21 +68,24 @@ public class CityPickerActivity extends AppCompatActivity {
     private CityListAdapter allAdapter;
     private List<City> allCities = new ArrayList<>();
     private City locatedCity;
+    private Handler locationHandler;
+    private boolean locationSuccess = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        WindowCompat.setDecorFitsSystemWindows(getWindow(), false);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_city_picker);
 
-        ImageView ivBack = findViewById(R.id.ivBack);
+        com.google.android.material.appbar.MaterialToolbar toolbar = findViewById(R.id.toolbar);
+        toolbar.setNavigationOnClickListener(v -> finish());
+
         rvHotCities = findViewById(R.id.rvHotCities);
         rvCityList = findViewById(R.id.rvCityList);
         etSearch = findViewById(R.id.etSearch);
         llLocationCity = findViewById(R.id.llLocationCity);
         tvLocationCity = findViewById(R.id.tvLocationCity);
         progressLocation = findViewById(R.id.progressLocation);
-
-        ivBack.setOnClickListener(v -> finish());
 
         hotAdapter = new CityTagAdapter(this::onCitySelected);
         rvHotCities.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
@@ -98,8 +110,18 @@ public class CityPickerActivity extends AppCompatActivity {
             }
         });
 
+        locationHandler = new Handler(Looper.getMainLooper());
+
         loadCities();
         requestLocation();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        if (locationHandler != null) {
+            locationHandler.removeCallbacksAndMessages(null);
+        }
     }
 
     /**
@@ -139,58 +161,129 @@ public class CityPickerActivity extends AppCompatActivity {
      * biubiupapa
      */
     private void startLocation() {
+        locationSuccess = false;
+
+        locationHandler.postDelayed(() -> {
+            if (!locationSuccess) {
+                fallbackToIpLocation();
+            }
+        }, LOCATION_TIMEOUT_MS);
+
         LocationManager locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
         if (locationManager == null) {
-            tvLocationCity.setText("定位不可用");
-            progressLocation.setVisibility(View.GONE);
+            fallbackToIpLocation();
             return;
         }
 
-        // 优先网络定位，再 GPS
-        Location location = null;
-        if (locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER)) {
-            location = locationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
+        boolean networkEnabled = false;
+        boolean gpsEnabled = false;
+        try {
+            networkEnabled = locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER);
+            gpsEnabled = locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER);
+        } catch (SecurityException e) {
+            fallbackToIpLocation();
+            return;
         }
-        if (location == null && locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
-            location = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+
+        if (!networkEnabled && !gpsEnabled) {
+            fallbackToIpLocation();
+            return;
+        }
+
+        Location location = null;
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)
+                == PackageManager.PERMISSION_GRANTED) {
+            if (networkEnabled) {
+                location = locationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
+            }
+            if (location == null && gpsEnabled) {
+                location = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+            }
         }
 
         if (location != null) {
             onLocationObtained(location);
-        } else {
-            // 没有缓存位置，请求一次更新
-            try {
-                String provider = locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER)
-                        ? LocationManager.NETWORK_PROVIDER : LocationManager.GPS_PROVIDER;
-                locationManager.requestSingleUpdate(provider, new LocationListener() {
-                    @Override
-                    public void onLocationChanged(Location loc) {
-                        onLocationObtained(loc);
-                        try {
-                            locationManager.removeUpdates(this);
-                        } catch (SecurityException ignored) {
-                        }
-                    }
-
-                    @Override
-                    public void onStatusChanged(String provider, int status, Bundle extras) {
-                    }
-
-                    @Override
-                    public void onProviderEnabled(String provider) {
-                    }
-
-                    @Override
-                    public void onProviderDisabled(String provider) {
-                        tvLocationCity.setText("定位服务未开启");
-                        progressLocation.setVisibility(View.GONE);
-                    }
-                }, getMainLooper());
-            } catch (SecurityException e) {
-                tvLocationCity.setText("定位失败");
-                progressLocation.setVisibility(View.GONE);
-            }
+            return;
         }
+
+        try {
+            String provider = networkEnabled ? LocationManager.NETWORK_PROVIDER : LocationManager.GPS_PROVIDER;
+            locationManager.requestSingleUpdate(provider, new LocationListener() {
+                @Override
+                public void onLocationChanged(Location loc) {
+                    if (!locationSuccess) {
+                        onLocationObtained(loc);
+                        locationHandler.removeCallbacksAndMessages(null);
+                    }
+                    try {
+                        locationManager.removeUpdates(this);
+                    } catch (SecurityException ignored) {
+                    }
+                }
+
+                @Override
+                public void onStatusChanged(String provider, int status, Bundle extras) {
+                }
+
+                @Override
+                public void onProviderEnabled(String provider) {
+                }
+
+                @Override
+                public void onProviderDisabled(String provider) {
+                    if (!locationSuccess) {
+                        fallbackToIpLocation();
+                    }
+                }
+            }, getMainLooper());
+        } catch (SecurityException e) {
+            fallbackToIpLocation();
+        }
+    }
+
+    /**
+     * IP定位备用方案
+     */
+    private void fallbackToIpLocation() {
+        new Thread(() -> {
+            try {
+                URL url = new URL("https://api.ipgeolocation.io/ipgeo?apiKey=free");
+                HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+                conn.setConnectTimeout(5000);
+                conn.setReadTimeout(5000);
+                conn.setRequestMethod("GET");
+                conn.setRequestProperty("User-Agent", "Mozilla/5.0");
+
+                if (conn.getResponseCode() == HttpURLConnection.HTTP_OK) {
+                    InputStream is = conn.getInputStream();
+                    StringBuilder sb = new StringBuilder();
+                    byte[] buffer = new byte[1024];
+                    int len;
+                    while ((len = is.read(buffer)) != -1) {
+                        sb.append(new String(buffer, 0, len));
+                    }
+                    is.close();
+
+                    JSONObject json = new JSONObject(sb.toString());
+                    String city = json.optString("city", "");
+                    String state = json.optString("state_prov", "");
+
+                    String cityResult = city.isEmpty() ? state : city;
+
+                    if (!cityResult.isEmpty()) {
+                        final String finalCityResult = cityResult;
+                        runOnUiThread(() -> {
+                            if (!locationSuccess) {
+                                matchAndShowLocatedCity(finalCityResult);
+                            }
+                        });
+                        return;
+                    }
+                }
+            } catch (IOException | JSONException e) {
+                // IP定位也失败，保持旋转，让用户手动选择
+            }
+        }).start();
     }
 
     /**
@@ -198,6 +291,8 @@ public class CityPickerActivity extends AppCompatActivity {
      * biubiupapa
      */
     private void onLocationObtained(Location location) {
+        locationSuccess = true;
+
         double latitude = location.getLatitude();
         double longitude = location.getLongitude();
 
@@ -206,12 +301,10 @@ public class CityPickerActivity extends AppCompatActivity {
             List<Address> addresses = geocoder.getFromLocation(latitude, longitude, 1);
             if (addresses != null && !addresses.isEmpty()) {
                 Address address = addresses.get(0);
-                String cityName = address.getCity();
-                // 有些返回 "北京市" 需要去掉 "市" 后缀
+                String cityName = address.getLocality();
                 if (cityName != null && cityName.endsWith("市")) {
                     cityName = cityName.substring(0, cityName.length() - 1);
                 }
-                // 有些返回的是区级，取.adminArea 省市级
                 if (cityName == null || cityName.isEmpty()) {
                     cityName = address.getAdminArea();
                     if (cityName != null && cityName.endsWith("市")) {
@@ -228,8 +321,7 @@ public class CityPickerActivity extends AppCompatActivity {
             // Geocoder 失败
         }
 
-        tvLocationCity.setText("定位失败");
-        progressLocation.setVisibility(View.GONE);
+        fallbackToIpLocation();
     }
 
     /**

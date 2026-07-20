@@ -8,8 +8,8 @@
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
-        android:label="Intent Demo"
-        android:theme="@style/Theme.AppCompat.Light.DarkActionBar"
+        android:label="阿博电影"
+        android:theme="@style/Theme.BoMovie"
         android:usesCleartextTraffic="true">
 
 
@@ -25,6 +25,13 @@
         <activity android:name=".DetailActivity" />
         <activity android:name=".SearchActivity" />
         <activity android:name=".CityPickerActivity" />
+        <activity android:name=".ProfileActivity" />
+        <activity android:name=".LoginActivity" />
+        <activity android:name=".CartActivity" />
+        <activity android:name=".OrderActivity" />
+        <activity android:name=".OrderListActivity" />
+        <activity android:name=".PaySuccessActivity" />
+        <activity android:name=".SeatSelectActivity" />
 
     </application>
 

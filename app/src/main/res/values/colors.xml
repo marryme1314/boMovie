@@ -1,5 +1,54 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="black">#FF000000</color>
-    <color name="white">#FFFFFFFF</color>
+    <!-- Material 3 主题色 -->
+    <color name="seed">#FF5C00</color>
+
+    <!-- Primary - 主色（橙红色） -->
+    <color name="primary">#E65100</color>
+    <color name="on_primary">#FFFFFF</color>
+    <color name="primary_container">#FFDBCB</color>
+    <color name="on_primary_container">#301500</color>
+
+    <!-- Secondary - 辅助色 -->
+    <color name="secondary">#77574A</color>
+    <color name="on_secondary">#FFFFFF</color>
+    <color name="secondary_container">#FFDBCB</color>
+    <color name="on_secondary_container">#2C150B</color>
+
+    <!-- Tertiary - 第三色 -->
+    <color name="tertiary">#606437</color>
+    <color name="on_tertiary">#FFFFFF</color>
+    <color name="tertiary_container">#E5E9B0</color>
+    <color name="on_tertiary_container">#1C1E00</color>
+
+    <!-- Error -->
+    <color name="error">#BA1A1A</color>
+    <color name="on_error">#FFFFFF</color>
+
+    <!-- Surface / Background -->
+    <color name="surface">#FFF8F5</color>
+    <color name="on_surface">#201A18</color>
+    <color name="surface_variant">#F5EFEA</color>
+    <color name="on_surface_variant">#53443E</color>
+    <color name="outline">#85746C</color>
+    <color name="outline_variant">#D7C3BA</color>
+
+    <!-- 自定义语义色 -->
+    <color name="rating_high">#FF6B35</color>
+    <color name="rating_low">#999999</color>
+    <color name="wish_count">#FF9800</color>
+    <color name="release_date">#3C9FE6</color>
+    <color name="tagline">#E65100</color>
+    <color name="divider">#EDE0D9</color>
+    <color name="overlay_dark">#CC000000</color>
+
+    <!-- 文字色 -->
+    <color name="text_primary">#201A18</color>
+    <color name="text_secondary">#53443E</color>
+    <color name="text_hint">#85746C</color>
+    <color name="text_disabled">#CAC4D0</color>
+
+    <!-- Banner 渐变 -->
+    <color name="banner_gradient_start">#CC000000</color>
+    <color name="banner_gradient_end">#00000000</color>
 </resources>

@@ -9,4 +9,10 @@
         android:title="搜索"
         app:showAsAction="always" />
 
+    <item
+        android:id="@+id/action_profile"
+        android:icon="@android:drawable/ic_menu_myplaces"
+        android:title="个人中心"
+        app:showAsAction="always" />
+
 </menu>

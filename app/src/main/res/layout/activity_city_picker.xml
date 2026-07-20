@@ -1,57 +1,52 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="#FFFFFF">
+    android:background="@color/surface">
 
-    <!-- 顶部栏 -->
-    <RelativeLayout
+    <!-- 搜索栏 -->
+    <com.google.android.material.appbar.MaterialToolbar
+        android:id="@+id/toolbar"
         android:layout_width="match_parent"
-        android:layout_height="56dp"
-        android:background="#FFFFFF"
-        android:elevation="2dp">
-
-        <ImageView
-            android:id="@+id/ivBack"
-            android:layout_width="48dp"
-            android:layout_height="48dp"
-            android:layout_centerVertical="true"
-            android:padding="12dp"
-            android:src="@android:drawable/ic_menu_close_clear_cancel"
-            android:contentDescription="关闭" />
+        android:layout_height="?attr/actionBarSize"
+        android:background="@color/surface"
+        app:title="@string/city_picker_title"
+        app:titleTextColor="@color/on_surface"
+        app:navigationIcon="@android:drawable/ic_menu_close_clear_cancel"
+        app:navigationContentDescription="关闭"
+        app:contentInsetStartWithNavigation="0dp">
 
         <EditText
             android:id="@+id/etSearch"
             android:layout_width="match_parent"
             android:layout_height="40dp"
-            android:layout_centerVertical="true"
-            android:layout_marginStart="52dp"
-            android:layout_marginEnd="16dp"
             android:background="@android:color/transparent"
-            android:hint="搜索城市名或拼音"
+            android:hint="@string/search_city_hint"
             android:textSize="15sp"
             android:singleLine="true"
-            android:inputType="text" />
+            android:inputType="text"
+            android:textColor="@color/text_primary"
+            android:textColorHint="@color/text_hint" />
 
-    </RelativeLayout>
+    </com.google.android.material.appbar.MaterialToolbar>
 
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:background="#E0E0E0" />
+        android:background="@color/divider" />
 
     <!-- 当前定位城市 -->
     <LinearLayout
         android:id="@+id/llLocationCity"
         android:layout_width="match_parent"
         android:layout_height="48dp"
-        android:layout_marginStart="16dp"
+        android:layout_marginHorizontal="16dp"
         android:layout_marginTop="8dp"
-        android:layout_marginEnd="16dp"
         android:gravity="center_vertical"
         android:orientation="horizontal"
-        android:background="?android:attr/selectableItemBackground">
+        android:background="?attr/selectableItemBackground">
 
         <ImageView
             android:layout_width="20dp"
@@ -64,8 +59,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
-            android:text="正在定位..."
-            android:textColor="#FF6600"
+            android:text="@string/locating"
+            android:textColor="@color/primary"
             android:textSize="15sp" />
 
         <ProgressBar
@@ -80,7 +75,7 @@
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:background="#E0E0E0" />
+        android:background="@color/divider" />
 
     <!-- 热门城市 -->
     <TextView
@@ -89,8 +84,8 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
-        android:text="热门城市"
-        android:textColor="#333333"
+        android:text="@string/hot_cities"
+        android:textColor="@color/text_primary"
         android:textSize="16sp"
         android:textStyle="bold" />
 
@@ -98,16 +93,15 @@
         android:id="@+id/rvHotCities"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="12dp"
+        android:layout_marginHorizontal="12dp"
         android:layout_marginTop="12dp"
-        android:layout_marginEnd="12dp"
         android:nestedScrollingEnabled="false" />
 
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:layout_marginTop="16dp"
-        android:background="#E0E0E0" />
+        android:background="@color/divider" />
 
     <!-- 全部城市列表 -->
     <androidx.recyclerview.widget.RecyclerView

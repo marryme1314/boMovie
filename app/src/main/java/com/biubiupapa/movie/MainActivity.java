@@ -11,7 +11,11 @@ import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.android.material.badge.BadgeDrawable;
+
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.view.WindowCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager2.widget.ViewPager2;
@@ -54,6 +58,7 @@ public class MainActivity extends AppCompatActivity {
     private TextView tvExpectedHeader;
     private TextView tvCityName;
     private LinearLayout llCitySelector;
+    private BottomNavigationView bottomNav;
 
     private BannerAdapter bannerAdapter;
     private MovieAdapter topRatedAdapter;
@@ -63,15 +68,16 @@ public class MainActivity extends AppCompatActivity {
     private final Handler autoScrollHandler = new Handler(Looper.getMainLooper());
     private Runnable autoScrollRunnable;
     private final AtomicInteger pendingRequests = new AtomicInteger(4);
-/**
- * 开始加载
- * biubiupapa
- */
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        WindowCompat.setDecorFitsSystemWindows(getWindow(), false);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        // Toolbar
+        androidx.appcompat.widget.Toolbar toolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
 
         vpHotBanner = findViewById(R.id.vpHotBanner);
         llBannerIndicators = findViewById(R.id.llBannerIndicators);
@@ -90,6 +96,23 @@ public class MainActivity extends AppCompatActivity {
             Intent intent = new Intent(MainActivity.this, CityPickerActivity.class);
             startActivityForResult(intent, REQUEST_CITY);
         });
+
+        bottomNav = findViewById(R.id.bottomNav);
+        bottomNav.setSelectedItemId(R.id.nav_home);
+        bottomNav.setOnNavigationItemSelectedListener(item -> {
+            int id = item.getItemId();
+            if (id == R.id.nav_cart) {
+                startActivity(new Intent(MainActivity.this, CartActivity.class));
+                return true;
+            } else if (id == R.id.nav_profile) {
+                startActivity(new Intent(MainActivity.this, ProfileActivity.class));
+                return true;
+            } else if (id == R.id.nav_home) {
+                return true;
+            }
+            return false;
+        });
+        updateCartBadge();
 
         OnMovieClickListener openDetail = movie -> {
             Intent intent = new Intent(MainActivity.this, DetailActivity.class);
@@ -153,6 +176,10 @@ public class MainActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId() == R.id.action_search) {
             startActivity(new Intent(this, SearchActivity.class));
+            return true;
+        }
+        if (item.getItemId() == R.id.action_profile) {
+            startActivity(new Intent(this, ProfileActivity.class));
             return true;
         }
         return super.onOptionsItemSelected(item);
@@ -294,6 +321,17 @@ public class MainActivity extends AppCompatActivity {
         progressBar.setVisibility(loading ? View.VISIBLE : View.GONE);
     }
 
+    private void updateCartBadge() {
+        if (bottomNav == null) return;
+        int count = com.biubiupapa.movie.util.CartManager.getInstance(this).getCount();
+        BadgeDrawable badge = bottomNav.getOrCreateBadge(R.id.nav_cart);
+        badge.setVisible(count > 0);
+        badge.setNumber(count);
+        badge.setBackgroundColor(getResources().getColor(R.color.primary));
+        badge.setBadgeTextColor(getResources().getColor(R.color.on_primary));
+        badge.setMaxCharacterCount(3);
+    }
+
     private void showMessage(String message) {
         tvMessage.setText(message);
         tvMessage.setVisibility(View.VISIBLE);
@@ -305,6 +343,7 @@ public class MainActivity extends AppCompatActivity {
         if (bannerAdapter.getItemCount() > 1) {
             startAutoScroll();
         }
+        updateCartBadge();
     }
 
     @Override

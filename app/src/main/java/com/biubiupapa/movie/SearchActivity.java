@@ -8,12 +8,11 @@ import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
 import android.widget.EditText;
-import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.view.WindowCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -56,18 +55,19 @@ public class SearchActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        WindowCompat.setDecorFitsSystemWindows(getWindow(), false);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search);
 
-        ImageView ivBack = findViewById(R.id.ivBack);
+        com.google.android.material.appbar.MaterialToolbar toolbar = findViewById(R.id.toolbar);
+        toolbar.setNavigationOnClickListener(v -> finish());
+
         etSearch = findViewById(R.id.etSearch);
         tvSearchBtn = findViewById(R.id.tvSearch);
         rvSuggestList = findViewById(R.id.rvSuggestList);
         rvSearchResults = findViewById(R.id.rvSearchResults);
         progressSearch = findViewById(R.id.progressSearch);
         tvEmpty = findViewById(R.id.tvEmpty);
-
-        ivBack.setOnClickListener(v -> finish());
 
         OnMovieClickListener openDetail = movie -> {
             Intent intent = new Intent(SearchActivity.this, DetailActivity.class);
@@ -160,17 +160,19 @@ public class SearchActivity extends AppCompatActivity {
                     public void onResponse(Call<SearchMovieResponse> call,
                                            Response<SearchMovieResponse> response) {
                         progressSearch.setVisibility(View.GONE);
-                        if (response.isSuccessful() && response.body() != null
-                                && response.body().isSuccess()) {
+                        if (response.isSuccessful() && response.body() != null) {
                             SearchMovieResponse.SearchMovies movies = response.body().getMovies();
                             if (movies != null && movies.getList() != null
                                     && !movies.getList().isEmpty()) {
                                 resultAdapter.setMovies(movies.getList());
                                 rvSearchResults.setVisibility(View.VISIBLE);
+                                saveSearchHistory(keyword);
                             } else {
+                                tvEmpty.setText("未找到相关电影");
                                 tvEmpty.setVisibility(View.VISIBLE);
                             }
                         } else {
+                            tvEmpty.setText("搜索结果为空");
                             tvEmpty.setVisibility(View.VISIBLE);
                         }
                     }
@@ -182,6 +184,18 @@ public class SearchActivity extends AppCompatActivity {
                         tvEmpty.setVisibility(View.VISIBLE);
                     }
                 });
+    }
+
+    private void saveSearchHistory(String keyword) {
+        android.content.SharedPreferences sp = getSharedPreferences("search_history", MODE_PRIVATE);
+        String history = sp.getString("history", "");
+        if (!history.contains(keyword)) {
+            history = keyword + "," + history;
+            if (history.length() > 500) {
+                history = history.substring(0, 500);
+            }
+            sp.edit().putString("history", history).apply();
+        }
     }
 
     // 搜索建议适配器
@@ -200,16 +214,15 @@ public class SearchActivity extends AppCompatActivity {
             notifyDataSetChanged();
         }
 
-        @NonNull
         @Override
-        public ViewHolder onCreateViewHolder(@NonNull android.view.ViewGroup parent, int viewType) {
+        public ViewHolder onCreateViewHolder(android.view.ViewGroup parent, int viewType) {
             View view = android.view.LayoutInflater.from(parent.getContext())
                     .inflate(R.layout.item_suggest, parent, false);
             return new ViewHolder(view);
         }
 
         @Override
-        public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
+        public void onBindViewHolder(ViewHolder holder, int position) {
             SearchSuggestItem item = items.get(position);
             holder.tvName.setText(item.getName() != null ? item.getName() : "");
             holder.itemView.setOnClickListener(v -> listener.onSuggestClick(item));
@@ -246,12 +259,12 @@ public class SearchActivity extends AppCompatActivity {
         }
 
         static class ViewHolder extends RecyclerView.ViewHolder {
-            final ImageView ivPoster;
+            final android.widget.ImageView ivPoster;
             final TextView tvName;
             final TextView tvInfo;
             final TextView tvScore;
 
-            ViewHolder(@NonNull View itemView) {
+            ViewHolder(View itemView) {
                 super(itemView);
                 ivPoster = itemView.findViewById(R.id.ivPoster);
                 tvName = itemView.findViewById(R.id.tvName);

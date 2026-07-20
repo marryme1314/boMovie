@@ -1,28 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="#FFFFFF">
+    android:background="@color/surface">
 
     <!-- 搜索栏 -->
-    <LinearLayout
+    <com.google.android.material.appbar.MaterialToolbar
+        android:id="@+id/toolbar"
         android:layout_width="match_parent"
-        android:layout_height="56dp"
-        android:gravity="center_vertical"
-        android:orientation="horizontal"
-        android:paddingStart="4dp"
-        android:paddingEnd="8dp"
-        android:background="#FFFFFF"
-        android:elevation="2dp">
-
-        <ImageView
-            android:id="@+id/ivBack"
-            android:layout_width="44dp"
-            android:layout_height="44dp"
-            android:padding="10dp"
-            android:src="@android:drawable/ic_menu_close_clear_cancel"
-            android:contentDescription="返回" />
+        android:layout_height="?attr/actionBarSize"
+        android:background="@color/surface"
+        app:title=""
+        app:contentInsetStartWithNavigation="0dp"
+        app:contentInsetEnd="0dp"
+        app:navigationIcon="@android:drawable/ic_menu_close_clear_cancel"
+        app:navigationContentDescription="返回">
 
         <EditText
             android:id="@+id/etSearch"
@@ -30,13 +24,14 @@
             android:layout_height="40dp"
             android:layout_weight="1"
             android:background="@drawable/rounded_card"
-            android:hint="搜索电影"
+            android:hint="@string/search_hint"
             android:textSize="15sp"
             android:singleLine="true"
             android:inputType="text"
             android:paddingStart="12dp"
             android:paddingEnd="12dp"
-            android:textColorHint="#999999" />
+            android:textColor="@color/text_primary"
+            android:textColorHint="@color/text_hint" />
 
         <TextView
             android:id="@+id/tvSearch"
@@ -44,17 +39,17 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
             android:text="搜索"
-            android:textColor="#FF6B6B"
+            android:textColor="@color/primary"
             android:textSize="16sp"
             android:textStyle="bold"
             android:padding="8dp" />
 
-    </LinearLayout>
+    </com.google.android.material.appbar.MaterialToolbar>
 
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:background="#E0E0E0" />
+        android:background="@color/divider" />
 
     <!-- 搜索建议列表 -->
     <androidx.recyclerview.widget.RecyclerView
@@ -88,8 +83,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:text="暂无搜索结果"
-            android:textColor="#999999"
+            android:text="@string/no_results"
+            android:textColor="@color/text_hint"
             android:textSize="15sp"
             android:visibility="gone" />
 

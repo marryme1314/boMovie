@@ -1,24 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:layout_marginEnd="12dp"
-    android:layout_marginBottom="8dp">
+    android:layout_marginBottom="8dp"
+    app:cardCornerRadius="12dp"
+    app:cardElevation="2dp"
+    app:cardPreventCornerOverlap="false"
+    app:strokeWidth="0dp">
 
     <LinearLayout
         android:layout_width="140dp"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:padding="0dp"
-        android:background="@drawable/movie_card_bg">
+        android:orientation="vertical">
 
         <ImageView
             android:id="@+id/ivPoster"
-            android:layout_width="140dp"
+            android:layout_width="match_parent"
             android:layout_height="190dp"
             android:scaleType="centerCrop"
             android:contentDescription="电影海报"
-            android:background="#E0E0E0" />
+            android:background="@color/surface_variant" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -30,7 +33,7 @@
                 android:id="@+id/tvMovieTitle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textColor="#333333"
+                android:textColor="@color/text_primary"
                 android:textSize="13sp"
                 android:textStyle="bold"
                 android:maxLines="2"
@@ -42,7 +45,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="6dp"
-                android:textColor="#FF9800"
+                android:textColor="@color/wish_count"
                 android:textSize="12sp"
                 android:textStyle="bold"
                 android:text="0人想看" />
@@ -52,7 +55,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="4dp"
-                android:textColor="#999999"
+                android:textColor="@color/text_hint"
                 android:textSize="11sp"
                 android:maxLines="1"
                 android:ellipsize="end"
@@ -62,4 +65,4 @@
 
     </LinearLayout>
 
-</FrameLayout>
+</com.google.android.material.card.MaterialCardView>

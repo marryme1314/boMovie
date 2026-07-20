@@ -1,3 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <!-- 间距 -->
+    <dimen name="margin_4">4dp</dimen>
+    <dimen name="margin_8">8dp</dimen>
+    <dimen name="margin_12">12dp</dimen>
+    <dimen name="margin_16">16dp</dimen>
+    <dimen name="margin_20">20dp</dimen>
+    <dimen name="margin_24">24dp</dimen>
+
+    <!-- 圆角 -->
+    <dimen name="radius_4">4dp</dimen>
+    <dimen name="radius_8">8dp</dimen>
+    <dimen name="radius_12">12dp</dimen>
+    <dimen name="radius_16">16dp</dimen>
+
+    <!-- 图标尺寸 -->
+    <dimen name="icon_16">16dp</dimen>
+    <dimen name="icon_20">20dp</dimen>
+    <dimen name="icon_24">24dp</dimen>
+    <dimen name="icon_44">44dp</dimen>
+    <dimen name="icon_48">48dp</dimen>
+
+    <!-- 标题栏 -->
+    <dimen name="toolbar_height">56dp</dimen>
+    <dimen name="toolbar_icon_padding">12dp</dimen>
+
+    <!-- Banner -->
+    <dimen name="banner_height">220dp</dimen>
+    <dimen name="banner_indicator_size">8dp</dimen>
+    <dimen name="banner_indicator_margin">4dp</dimen>
+
+    <!-- 电影卡片 -->
+    <dimen name="card_poster_width">140dp</dimen>
+    <dimen name="card_poster_height">190dp</dimen>
+    <dimen name="card_padding">10dp</dimen>
+    <dimen name="card_elevation">2dp</dimen>
+
+    <!-- 详情页 -->
+    <dimen name="detail_poster_height">280dp</dimen>
+
+    <!-- 搜索框 -->
+    <dimen name="search_bar_height">40dp</dimen>
+
+    <!-- FAB -->
     <dimen name="fab_margin">16dp</dimen>
 </resources>

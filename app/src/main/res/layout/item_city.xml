@@ -8,5 +8,5 @@
     android:paddingEnd="16dp"
     android:layout_margin="4dp"
     android:background="@drawable/rounded_card"
-    android:textColor="#333333"
+    android:textColor="@color/text_primary"
     android:textSize="14sp" />

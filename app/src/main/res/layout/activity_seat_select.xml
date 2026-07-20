@@ -1,0 +1,271 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/surface_variant">
+
+    <com.google.android.material.appbar.MaterialToolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="@color/surface"
+        app:title="选择座位"
+        app:titleTextColor="@color/text_primary"
+        app:navigationIcon="@drawable/ic_back"
+        app:navigationContentDescription="返回">
+    </com.google.android.material.appbar.MaterialToolbar>
+
+    <com.google.android.material.card.MaterialCardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="12dp"
+        app:cardCornerRadius="12dp"
+        app:cardElevation="2dp"
+        app:contentPadding="16dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/tvSeatMovie"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@color/text_primary"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/tvSeatCinema"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:textColor="@color/text_secondary"
+                android:textSize="14sp" />
+
+            <TextView
+                android:id="@+id/tvSeatTime"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:textColor="@color/text_secondary"
+                android:textSize="14sp" />
+
+        </LinearLayout>
+
+    </com.google.android.material.card.MaterialCardView>
+
+    <com.google.android.material.card.MaterialCardView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:layout_marginHorizontal="12dp"
+        android:layout_marginBottom="12dp"
+        app:cardCornerRadius="12dp"
+        app:cardElevation="2dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:padding="16dp">
+
+            <!-- Screen indicator -->
+            <View
+                android:layout_width="200dp"
+                android:layout_height="4dp"
+                android:layout_gravity="center_horizontal"
+                android:background="@color/primary" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:text="银幕"
+                android:textColor="@color/text_hint"
+                android:textSize="12sp"
+                android:layout_marginTop="4dp" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:orientation="vertical"
+                android:gravity="center">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="请选择座位"
+                    android:textColor="@color/text_hint"
+                    android:textSize="16sp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="点击选择座位区域"
+                    android:textColor="@color/text_hint"
+                    android:textSize="14sp"
+                    android:layout_marginTop="8dp" />
+
+                <!-- Seat grid placeholder - 5 rows x 8 cols -->
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:layout_marginTop="24dp"
+                    android:gravity="center">
+
+                    <!-- Generate 5 rows of seats -->
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:gravity="center">
+                        <TextView android:layout_width="32dp" android:layout_height="32dp" android:gravity="center" android:text="A" android:textColor="@color/text_hint" android:textSize="12sp"/>
+                        <View android:layout_width="8dp" android:layout_height="1dp"/>
+                        <View android:id="@+id/seat_1" android:layout_width="28dp" android:layout_height="28dp" android:layout_margin="3dp" android:background="@drawable/seat_available" />
+                        <View android:id="@+id/seat_2" android:layout_width="28dp" android:layout_height="28dp" android:layout_margin="3dp" android:background="@drawable/seat_available" />
+                        <View android:id="@+id/seat_3" android:layout_width="28dp" android:layout_height="28dp" android:layout_margin="3dp" android:background="@drawable/seat_available" />
+                        <View android:id="@+id/seat_4" android:layout_width="28dp" android:layout_height="28dp" android:layout_margin="3dp" android:background="@drawable/seat_available" />
+                        <View android:layout_width="12dp" android:layout_height="1dp"/>
+                        <View android:id="@+id/seat_5" android:layout_width="28dp" android:layout_height="28dp" android:layout_margin="3dp" android:background="@drawable/seat_available" />
+                        <View android:id="@+id/seat_6" android:layout_width="28dp" android:layout_height="28dp" android:layout_margin="3dp" android:background="@drawable/seat_available" />
+                        <View android:id="@+id/seat_7" android:layout_width="28dp" android:layout_height="28dp" android:layout_margin="3dp" android:background="@drawable/seat_available" />
+                        <View android:id="@+id/seat_8" android:layout_width="28dp" android:layout_height="28dp" android:layout_margin="3dp" android:background="@drawable/seat_available" />
+                    </LinearLayout>
+                    <!-- Row B -->
+                    <LinearLayout android:layout_width="wrap_content" android:layout_height="wrap_content" android:orientation="horizontal" android:layout_marginTop="4dp" android:gravity="center">
+                        <TextView android:layout_width="32dp" android:layout_height="32dp" android:gravity="center" android:text="B" android:textColor="@color/text_hint" android:textSize="12sp"/>
+                        <View android:layout_width="8dp" android:layout_height="1dp"/>
+                        <View android:id="@+id/seat_9" android:layout_width="28dp" android:layout_height="28dp" android:layout_margin="3dp" android:background="@drawable/seat_available" />
+                        <View android:id="@+id/seat_10" android:layout_width="28dp" android:layout_height="28dp" android:layout_margin="3dp" android:background="@drawable/seat_available" />
+                        <View android:id="@+id/seat_11" android:layout_width="28dp" android:layout_height="28dp" android:layout_margin="3dp" android:background="@drawable/seat_occupied" />
+                        <View android:id="@+id/seat_12" android:layout_width="28dp" android:layout_height="28dp" android:layout_margin="3dp" android:background="@drawable/seat_occupied" />
+                        <View android:layout_width="12dp" android:layout_height="1dp"/>
+                        <View android:id="@+id/seat_13" android:layout_width="28dp" android:layout_height="28dp" android:layout_margin="3dp" android:background="@drawable/seat_available" />
+                        <View android:id="@+id/seat_14" android:layout_width="28dp" android:layout_height="28dp" android:layout_margin="3dp" android:background="@drawable/seat_available" />
+                        <View android:id="@+id/seat_15" android:layout_width="28dp" android:layout_height="28dp" android:layout_margin="3dp" android:background="@drawable/seat_available" />
+                        <View android:id="@+id/seat_16" android:layout_width="28dp" android:layout_height="28dp" android:layout_margin="3dp" android:background="@drawable/seat_available" />
+                    </LinearLayout>
+                    <!-- Row C -->
+                    <LinearLayout android:layout_width="wrap_content" android:layout_height="wrap_content" android:orientation="horizontal" android:layout_marginTop="4dp" android:gravity="center">
+                        <TextView android:layout_width="32dp" android:layout_height="32dp" android:gravity="center" android:text="C" android:textColor="@color/text_hint" android:textSize="12sp"/>
+                        <View android:layout_width="8dp" android:layout_height="1dp"/>
+                        <View android:id="@+id/seat_17" android:layout_width="28dp" android:layout_height="28dp" android:layout_margin="3dp" android:background="@drawable/seat_available" />
+                        <View android:id="@+id/seat_18" android:layout_width="28dp" android:layout_height="28dp" android:layout_margin="3dp" android:background="@drawable/seat_available" />
+                        <View android:id="@+id/seat_19" android:layout_width="28dp" android:layout_height="28dp" android:layout_margin="3dp" android:background="@drawable/seat_available" />
+                        <View android:id="@+id/seat_20" android:layout_width="28dp" android:layout_height="28dp" android:layout_margin="3dp" android:background="@drawable/seat_available" />
+                        <View android:layout_width="12dp" android:layout_height="1dp"/>
+                        <View android:id="@+id/seat_21" android:layout_width="28dp" android:layout_height="28dp" android:layout_margin="3dp" android:background="@drawable/seat_available" />
+                        <View android:id="@+id/seat_22" android:layout_width="28dp" android:layout_height="28dp" android:layout_margin="3dp" android:background="@drawable/seat_occupied" />
+                        <View android:id="@+id/seat_23" android:layout_width="28dp" android:layout_height="28dp" android:layout_margin="3dp" android:background="@drawable/seat_available" />
+                        <View android:id="@+id/seat_24" android:layout_width="28dp" android:layout_height="28dp" android:layout_margin="3dp" android:background="@drawable/seat_available" />
+                    </LinearLayout>
+                    <!-- Row D -->
+                    <LinearLayout android:layout_width="wrap_content" android:layout_height="wrap_content" android:orientation="horizontal" android:layout_marginTop="4dp" android:gravity="center">
+                        <TextView android:layout_width="32dp" android:layout_height="32dp" android:gravity="center" android:text="D" android:textColor="@color/text_hint" android:textSize="12sp"/>
+                        <View android:layout_width="8dp" android:layout_height="1dp"/>
+                        <View android:id="@+id/seat_25" android:layout_width="28dp" android:layout_height="28dp" android:layout_margin="3dp" android:background="@drawable/seat_available" />
+                        <View android:id="@+id/seat_26" android:layout_width="28dp" android:layout_height="28dp" android:layout_margin="3dp" android:background="@drawable/seat_available" />
+                        <View android:id="@+id/seat_27" android:layout_width="28dp" android:layout_height="28dp" android:layout_margin="3dp" android:background="@drawable/seat_available" />
+                        <View android:id="@+id/seat_28" android:layout_width="28dp" android:layout_height="28dp" android:layout_margin="3dp" android:background="@drawable/seat_available" />
+                        <View android:layout_width="12dp" android:layout_height="1dp"/>
+                        <View android:id="@+id/seat_29" android:layout_width="28dp" android:layout_height="28dp" android:layout_margin="3dp" android:background="@drawable/seat_available" />
+                        <View android:id="@+id/seat_30" android:layout_width="28dp" android:layout_height="28dp" android:layout_margin="3dp" android:background="@drawable/seat_available" />
+                        <View android:id="@+id/seat_31" android:layout_width="28dp" android:layout_height="28dp" android:layout_margin="3dp" android:background="@drawable/seat_available" />
+                        <View android:id="@+id/seat_32" android:layout_width="28dp" android:layout_height="28dp" android:layout_margin="3dp" android:background="@drawable/seat_available" />
+                    </LinearLayout>
+                    <!-- Row E -->
+                    <LinearLayout android:layout_width="wrap_content" android:layout_height="wrap_content" android:orientation="horizontal" android:layout_marginTop="4dp" android:gravity="center">
+                        <TextView android:layout_width="32dp" android:layout_height="32dp" android:gravity="center" android:text="E" android:textColor="@color/text_hint" android:textSize="12sp"/>
+                        <View android:layout_width="8dp" android:layout_height="1dp"/>
+                        <View android:id="@+id/seat_33" android:layout_width="28dp" android:layout_height="28dp" android:layout_margin="3dp" android:background="@drawable/seat_available" />
+                        <View android:id="@+id/seat_34" android:layout_width="28dp" android:layout_height="28dp" android:layout_margin="3dp" android:background="@drawable/seat_available" />
+                        <View android:id="@+id/seat_35" android:layout_width="28dp" android:layout_height="28dp" android:layout_margin="3dp" android:background="@drawable/seat_available" />
+                        <View android:id="@+id/seat_36" android:layout_width="28dp" android:layout_height="28dp" android:layout_margin="3dp" android:background="@drawable/seat_available" />
+                        <View android:layout_width="12dp" android:layout_height="1dp"/>
+                        <View android:id="@+id/seat_37" android:layout_width="28dp" android:layout_height="28dp" android:layout_margin="3dp" android:background="@drawable/seat_available" />
+                        <View android:id="@+id/seat_38" android:layout_width="28dp" android:layout_height="28dp" android:layout_margin="3dp" android:background="@drawable/seat_available" />
+                        <View android:id="@+id/seat_39" android:layout_width="28dp" android:layout_height="28dp" android:layout_margin="3dp" android:background="@drawable/seat_available" />
+                        <View android:id="@+id/seat_40" android:layout_width="28dp" android:layout_height="28dp" android:layout_margin="3dp" android:background="@drawable/seat_available" />
+                    </LinearLayout>
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <!-- Legend -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center"
+                android:layout_marginTop="12dp">
+
+                <View android:layout_width="12dp" android:layout_height="12dp" android:background="@drawable/seat_available" />
+                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="可选" android:textSize="12sp" android:textColor="@color/text_hint" android:layout_marginEnd="16dp" android:layout_marginStart="4dp" />
+
+                <View android:layout_width="12dp" android:layout_height="12dp" android:background="@drawable/seat_selected" />
+                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="已选" android:textSize="12sp" android:textColor="@color/text_hint" android:layout_marginEnd="16dp" android:layout_marginStart="4dp" />
+
+                <View android:layout_width="12dp" android:layout_height="12dp" android:background="@drawable/seat_occupied" />
+                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="已售" android:textSize="12sp" android:textColor="@color/text_hint" android:layout_marginStart="4dp" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </com.google.android.material.card.MaterialCardView>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:background="@color/surface"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:padding="16dp">
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/tvSelectedSeats"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="暂未选座"
+                android:textColor="@color/text_secondary"
+                android:textSize="14sp" />
+
+            <TextView
+                android:id="@+id/tvSeatTotal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="¥0"
+                android:textColor="@color/primary"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                android:layout_marginTop="2dp" />
+
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/btnConfirmSeat"
+            android:layout_width="140dp"
+            android:layout_height="44dp"
+            android:text="确认选座"
+            android:textColor="@color/on_primary"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            android:background="@color/primary"
+            app:cornerRadius="22dp" />
+
+    </LinearLayout>
+
+</LinearLayout>
